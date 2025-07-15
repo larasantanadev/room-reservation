@@ -1,10 +1,16 @@
+using Microsoft.EntityFrameworkCore;
+using RoomReservation.Infrastructure.Persistence.Contexts;
+
+
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddDbContext<RoomReservationDbContext>(options =>
+    options.UseSqlite(builder.Configuration.GetConnectionString("RoomReservationConnection")));
 
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddAuthorization();
 
 var app = builder.Build();
 

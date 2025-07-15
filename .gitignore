@@ -1,37 +1,58 @@
-# Build
+# ----------------------------------------
+# Build results
+# ----------------------------------------
 bin/
 obj/
+[Bb]uild/
+[Ll]ogs/
 
+# ----------------------------------------
 # User-specific files
+# ----------------------------------------
 .vs/
 *.user
 *.suo
+*.userosscache
+*.sln.docstates
 
-# Logs
-*.log
-
-# Rider
+# ----------------------------------------
+# Visual Studio Code / Rider / JetBrains
+# ----------------------------------------
+.vscode/
 .idea/
 
-# VS Code
-.vscode/
-
-# HTTP scratch files
-*.http
-
-# Test
-TestResults/
-*.coverage
-*.coveragexml
-
-# Local secrets and temp settings
+# ----------------------------------------
+# ASP.NET Secrets & Settings
+# ----------------------------------------
 *.env
 *.local.settings.json
+secrets.json
 
-# Backup & system files
+# ----------------------------------------
+# Logs / Coverage / Reports
+# ----------------------------------------
+*.log
+*.coverage
+*.coveragexml
+TestResults/
+
+# ----------------------------------------
+# Scratch & Debug Files
+# ----------------------------------------
+*.http
 *.bak
 *.orig
 *.rej
+
+# ----------------------------------------
+# System Files
+# ----------------------------------------
 Thumbs.db
 ehthumbs.db
 .DS_Store
+
+# ----------------------------------------
+# Others
+# ----------------------------------------
+*.ncrunch*
+_ReSharper*/
