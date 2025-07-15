@@ -1,0 +1,37 @@
+# Build
+bin/
+obj/
+
+# User-specific files
+.vs/
+*.user
+*.suo
+
+# Logs
+*.log
+
+# Rider
+.idea/
+
+# VS Code
+.vscode/
+
+# HTTP scratch files
+*.http
+
+# Test
+TestResults/
+*.coverage
+*.coveragexml
+
+# Local secrets and temp settings
+*.env
+*.local.settings.json
+
+# Backup & system files
+*.bak
+*.orig
+*.rej
+Thumbs.db
+ehthumbs.db
+.DS_Store
