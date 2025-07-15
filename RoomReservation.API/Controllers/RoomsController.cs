@@ -30,5 +30,14 @@ namespace RoomReservation.API.Controllers
             var result = await _mediator.Send(new GetAllRoomsQuery());
             return Ok(result);
         }
+
+        [HttpGet("available")]
+        public async Task<IActionResult> GetAvailableRooms([FromQuery] DateTime startTime, [FromQuery] DateTime endTime)
+        {
+            var query = new GetAvailableRoomsQuery(startTime, endTime);
+            var rooms = await _mediator.Send(query);
+            return Ok(rooms);
+        }
+
     }
 }

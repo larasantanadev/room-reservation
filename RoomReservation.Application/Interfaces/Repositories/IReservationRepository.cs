@@ -1,4 +1,5 @@
 ﻿using RoomReservation.Domain.Entities;
+using RoomReservation.Domain.Enums;
 
 namespace RoomReservation.Application.Interfaces.Repositories
 {
@@ -9,5 +10,7 @@ namespace RoomReservation.Application.Interfaces.Repositories
         Task DeleteAsync(Reservation reservation);
         Task<List<Reservation>> GetAllAsync();
         Task<Reservation?> GetByIdAsync(Guid id);
+        Task<IEnumerable<Reservation>> GetByStatusAsync(ReservationStatus status);
+        Task<List<Reservation>> GetByRoomIdAsync(Guid roomId);
     }
 }

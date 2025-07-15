@@ -6,5 +6,6 @@ namespace RoomReservation.Application.Interfaces.Repositories
     {
         Task AddAsync(Room room);
         Task<List<Room>> GetAllAsync();
+        Task<List<Room>> GetAvailableRoomsAsync(DateTime startTime, DateTime endTime);
     }
 }

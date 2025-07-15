@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RoomReservation.Application.Interfaces.Repositories;
 using RoomReservation.Domain.Entities;
+using RoomReservation.Domain.Enums;
 using RoomReservation.Infrastructure.Persistence.Contexts;
 
 namespace RoomReservation.Infrastructure.Persistence.Repositories;
@@ -42,8 +43,24 @@ public class ReservationRepository : IReservationRepository
     public async Task<Reservation?> GetByIdAsync(Guid id)
     {
         return await _context.Reservations
-            .Include(r => r.Room) // caso queira os dados da sala também
+            .Include(r => r.Room) 
             .FirstOrDefaultAsync(r => r.Id == id);
+    }
+
+    public async Task<IEnumerable<Reservation>> GetByStatusAsync(ReservationStatus status)
+    {
+        return await _context.Reservations
+            .Where(r => r.Status == status)
+            .Include(r => r.Room)
+            .ToListAsync();
+    }
+
+    public async Task<List<Reservation>> GetByRoomIdAsync(Guid roomId)
+    {
+        return await _context.Reservations
+            .Include(r => r.Room)
+            .Where(r => r.RoomId == roomId)
+            .ToListAsync();
     }
 
 }

@@ -1,22 +1,31 @@
 ﻿using MediatR;
+using RoomReservation.Application.DTOs.Reservation;
 using RoomReservation.Application.Features.Reservations.Queries;
 using RoomReservation.Application.Interfaces.Repositories;
-using RoomReservation.Domain.Entities;
 
-namespace RoomReservation.Application.Features.Reservations.Handlers.QueryHandler
+namespace RoomReservation.Application.Features.Reservations.Handlers.QueryHandler;
+
+public class GetReservationsByStatusQueryHandler : IRequestHandler<GetReservationsByStatusQuery, List<ReservationDto>>
 {
-    public class GetReservationsByStatusQueryHandler : IRequestHandler<GetReservationsByStatusQuery, List<Reservation>>
+    private readonly IReservationRepository _reservationRepository;
+
+    public GetReservationsByStatusQueryHandler(IReservationRepository reservationRepository)
     {
-        private readonly IReservationRepository _reservationRepository;
+        _reservationRepository = reservationRepository;
+    }
 
-        public GetReservationsByStatusQueryHandler(IReservationRepository reservationRepository)
-        {
-            _reservationRepository = reservationRepository;
-        }
+    public async Task<List<ReservationDto>> Handle(GetReservationsByStatusQuery request, CancellationToken cancellationToken)
+    {
+        var reservations = await _reservationRepository.GetByStatusAsync(request.Status);
 
-        public async Task<List<Reservation>> Handle(GetReservationsByStatusQuery request, CancellationToken cancellationToken)
+        return reservations.Select(r => new ReservationDto
         {
-            return await _reservationRepository.GetByStatusAsync(request.Status);
-        }
+            Id = r.Id,
+            RoomId = r.RoomId,
+            ReservedBy = r.ReservedBy,
+            StartTime = r.StartTime,
+            EndTime = r.EndTime,
+            Status = r.Status.ToString()
+        }).ToList();
     }
 }

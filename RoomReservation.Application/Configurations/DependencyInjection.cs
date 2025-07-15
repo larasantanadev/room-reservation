@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using RoomReservation.Application.Features.Rooms.Handlers;
+using RoomReservation.Application.Features.Rooms.Handlers.CommandHandler;
 
 namespace RoomReservation.Application.Configurations
 {

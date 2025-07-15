@@ -24,5 +24,22 @@ namespace RoomReservation.Infrastructure.Persistence.Repositories
         {
             return await _context.Rooms.ToListAsync();
         }
+
+        public async Task<List<Room>> GetAvailableRoomsAsync(DateTime startTime, DateTime endTime)
+        {
+            var reservedRoomIds = await _context.Reservations
+                .Where(r =>
+                    (startTime < r.EndTime) &&
+                    (endTime > r.StartTime)
+                )
+                .Select(r => r.RoomId)
+                .Distinct()
+                .ToListAsync();
+
+            return await _context.Rooms
+                .Where(room => !reservedRoomIds.Contains(room.Id))
+                .ToListAsync();
+        }
+
     }
 }
