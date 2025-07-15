@@ -1,3 +1,4 @@
+using Polly;
 using RoomReservation.Application.Configurations;
 using RoomReservation.Infrastructure.Configurations;
 using System.Text.Json.Serialization;
@@ -24,6 +25,15 @@ builder.Services.AddSwaggerGen(options =>
     var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
     options.IncludeXmlComments(xmlPath);
 });
+
+builder.Services.AddHttpClient("ExternalApi", client =>
+{
+    client.BaseAddress = new Uri("https://localhost:9999");
+})
+.AddTransientHttpErrorPolicy(policy =>
+    policy.WaitAndRetryAsync(2, retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt))))
+.AddTransientHttpErrorPolicy(policy =>
+    policy.CircuitBreakerAsync(2, TimeSpan.FromSeconds(30)));
 
 // Health Check
 builder.Services.AddHealthChecks();
