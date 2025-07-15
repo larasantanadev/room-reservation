@@ -1,14 +1,19 @@
-using Microsoft.EntityFrameworkCore;
-using RoomReservation.Infrastructure.Persistence.Contexts;
+using RoomReservation.Application.Configurations;
+using RoomReservation.Infrastructure.Configurations;
+using System.Text.Json.Serialization;
 
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddDbContext<RoomReservationDbContext>(options =>
-    options.UseSqlite(builder.Configuration.GetConnectionString("RoomReservationConnection")));
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+    });
 
+builder.Services.AddApplication();
+builder.Services.AddInfrastructure(builder.Configuration);
 
-builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 

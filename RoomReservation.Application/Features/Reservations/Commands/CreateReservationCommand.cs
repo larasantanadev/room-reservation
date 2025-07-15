@@ -1,0 +1,15 @@
+﻿using MediatR;
+using RoomReservation.Application.DTOs.Reservation;
+using RoomReservation.Domain.Enums;
+
+namespace RoomReservation.Application.Features.Reservations.Commands;
+
+public class CreateReservationCommand : IRequest<Guid>
+{
+    public Guid RoomId { get; set; }
+    public required string ReservedBy { get; set; }
+    public DateTime StartTime { get; set; }
+    public DateTime EndTime { get; set; }
+    public ReservationStatus Status { get; set; }
+}
+
