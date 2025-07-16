@@ -1,10 +1,11 @@
 ﻿using MediatR;
+using RoomReservation.Application.Common;
 using RoomReservation.Application.DTOs.Reservation;
 using RoomReservation.Domain.Enums;
 
 namespace RoomReservation.Application.Features.Reservations.Commands;
 
-public class UpdateReservationCommand : IRequest<bool>
+public class UpdateReservationCommand : IRequest<Result<bool>>
 {
     public Guid Id { get; init; }
     public Guid RoomId { get; init; }

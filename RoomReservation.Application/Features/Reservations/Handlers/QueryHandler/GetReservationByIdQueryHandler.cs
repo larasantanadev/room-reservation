@@ -24,6 +24,7 @@ public class GetReservationByIdQueryHandler : IRequestHandler<GetReservationById
             Id = reservation.Id,
             RoomId = reservation.RoomId,
             ReservedBy = reservation.ReservedBy,
+            NumberOfAttendees = reservation.NumberOfAttendees,
             StartTime = reservation.StartTime,
             EndTime = reservation.EndTime,
             Status = reservation.Status.ToString()

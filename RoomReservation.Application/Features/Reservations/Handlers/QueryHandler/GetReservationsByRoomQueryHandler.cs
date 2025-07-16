@@ -23,6 +23,7 @@ public sealed class GetReservationsByRoomQueryHandler : IRequestHandler<GetReser
             Id = r.Id,
             RoomId = r.RoomId,
             ReservedBy = r.ReservedBy,
+            NumberOfAttendees = r.NumberOfAttendees,
             StartTime = r.StartTime,
             EndTime = r.EndTime,
             Status = r.Status.ToString()

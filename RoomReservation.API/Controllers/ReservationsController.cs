@@ -32,10 +32,14 @@ public class ReservationController : ControllerBase
     [HttpPost]
     [ProducesResponseType(typeof(Guid), StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> CreateReservation([FromBody]CreateReservationCommand command)
+    public async Task<IActionResult> Create([FromBody] CreateReservationCommand command)
     {
-        var id = await _mediator.Send(command);
-        return CreatedAtAction(nameof(GetById), new { id }, id);
+        var result = await _mediator.Send(command);
+
+        if (!result.Success)
+            return BadRequest(result.Errors);
+
+        return CreatedAtAction(nameof(GetById), new { id = result.Data }, result.Data);
     }
 
     /// <summary>
@@ -47,14 +51,15 @@ public class ReservationController : ControllerBase
     /// <response code="404">Reserva não encontrada.</response>
     [HttpPut("{id}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> Update(Guid id, [FromBody] UpdateReservationDto dto)
     {
         var command = UpdateReservationCommand.From(id, dto);
         var result = await _mediator.Send(command);
 
-        if (!result)
-            return NotFound("Reservation not found.");
+        if (!result.Success)
+            return BadRequest(result.Errors);
 
         return NoContent();
     }

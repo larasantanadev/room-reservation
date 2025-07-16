@@ -51,6 +51,25 @@ public class RoomController : ControllerBase
     }
 
     /// <summary>
+    /// Retorna os dados de uma sala pelo ID.
+    /// </summary>
+    /// <param name="id">Identificador da sala.</param>
+    /// <returns>Dados da sala correspondente.</returns>
+    /// <response code="200">Sala encontrada com sucesso.</response>
+    /// <response code="404">Sala não encontrada.</response>
+    [HttpGet("{id}")]
+    [ProducesResponseType(typeof(RoomDto), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> GetById(Guid id)
+    {
+        var result = await _mediator.Send(new GetRoomByIdQuery(id));
+        if (result is null)
+            return NotFound();
+
+        return Ok(result);
+    }
+
+    /// <summary>
     /// Lista salas disponíveis entre o intervalo de tempo informado.
     /// </summary>
     /// <param name="startTime">Data e hora de início.</param>

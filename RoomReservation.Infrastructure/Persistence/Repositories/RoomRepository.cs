@@ -25,6 +25,12 @@ namespace RoomReservation.Infrastructure.Persistence.Repositories
             return await _context.Rooms.ToListAsync();
         }
 
+        public async Task<Room?> GetByIdAsync(Guid id) 
+        {
+            return await _context.Rooms
+                .FirstOrDefaultAsync(r => r.Id == id);
+        }
+
         public async Task<List<Room>> GetAvailableRoomsAsync(DateTime startTime, DateTime endTime)
         {
             var reservedRoomIds = await _context.Reservations
