@@ -117,7 +117,7 @@ public class ReservationController : ControllerBase
     /// <summary>
     /// Retorna as reservas com base no status informado.
     /// </summary>
-    /// <param name="status">Status da reserva: Pending, Confirmed, Cancelled.</param>
+    /// <param name="status">Status da reserva: Pending, Confirmed, Cancelled, Completed e Rejected.</param>
     /// <response code="200">Lista de reservas retornada com sucesso.</response>
     /// <response code="400">Status inválido.</response>
     [HttpGet("status/{status}")]

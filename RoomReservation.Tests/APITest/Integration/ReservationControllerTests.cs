@@ -35,6 +35,7 @@ public class ReservationControllerTests : IClassFixture<CustomWebApplicationFact
         {
             RoomId = salaId,
             ReservedBy = "João da Silva",
+            NumberOfAttendees = 5,
             StartTime = DateTime.UtcNow.AddHours(1),
             EndTime = DateTime.UtcNow.AddHours(2)
         };
@@ -89,6 +90,7 @@ public class ReservationControllerTests : IClassFixture<CustomWebApplicationFact
         {
             RoomId = roomId,
             ReservedBy = "Maria Oliveira",
+            NumberOfAttendees = 5,
             StartTime = DateTime.UtcNow.AddHours(2),
             EndTime = DateTime.UtcNow.AddHours(3)
         };
@@ -102,6 +104,7 @@ public class ReservationControllerTests : IClassFixture<CustomWebApplicationFact
         {
             RoomId = roomId,
             ReservedBy = "Maria Atualizada",
+            NumberOfAttendees = 5,
             StartTime = DateTime.UtcNow.AddHours(3),
             EndTime = DateTime.UtcNow.AddHours(4)
         };

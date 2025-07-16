@@ -12,16 +12,17 @@ namespace RoomReservation.Tests.Application.Features.Reservations.Handlers;
 public class CreateReservationCommandHandlerTests
 {
     private readonly Mock<IReservationRepository> _reservationRepositoryMock = new();
-    private readonly Mock<IRoomRepository> _roomRepositoryMock = new(); 
+    private readonly Mock<IRoomRepository> _roomRepositoryMock = new();
     private readonly Mock<IValidator<CreateReservationCommand>> _validatorMock = new();
 
     [Fact]
     public async Task Handle_Should_CreateReservation_And_Return_Id()
     {
         // Arrange
+        var roomId = Guid.NewGuid();
         var command = new CreateReservationCommand
         {
-            RoomId = Guid.NewGuid(),
+            RoomId = roomId,
             ReservedBy = "Lara Santana",
             NumberOfAttendees = 5,
             StartTime = DateTime.UtcNow.AddHours(1),
@@ -33,16 +34,30 @@ public class CreateReservationCommandHandlerTests
             .Setup(v => v.ValidateAsync(command, It.IsAny<CancellationToken>()))
             .ReturnsAsync(new FluentValidation.Results.ValidationResult());
 
+        _roomRepositoryMock
+            .Setup(r => r.GetByIdAsync(command.RoomId))
+            .ReturnsAsync(new Room { Id = command.RoomId, Capacity = 10 });
+
+        _reservationRepositoryMock
+            .Setup(r => r.GetByRoomIdAsync(command.RoomId))
+            .ReturnsAsync(new List<Reservation>());
+
+        _reservationRepositoryMock
+            .Setup(r => r.AddAsync(It.IsAny<Reservation>()))
+            .Returns(Task.CompletedTask);
+
         var handler = new CreateReservationCommandHandler(
             _reservationRepositoryMock.Object,
-            _roomRepositoryMock.Object, 
+            _roomRepositoryMock.Object,
             _validatorMock.Object);
 
         // Act
         var result = await handler.Handle(command, CancellationToken.None);
 
         // Assert
-        result.Should().NotBeEmpty("porque o handler deve retornar o Guid da reserva criada");
+        result.Success.Should().BeTrue("porque a reserva deve ser criada com sucesso");
+        result.Data.Should().NotBe(Guid.Empty, "porque o resultado deve conter o ID da nova reserva");
+
 
         _reservationRepositoryMock.Verify(
             r => r.AddAsync(It.Is<Reservation>(

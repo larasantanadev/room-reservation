@@ -79,6 +79,7 @@ namespace RoomReservation.Tests.APITest.Integration
             {
                 RoomId = roomId,
                 ReservedBy = "Teste",
+                NumberOfAttendees = 5,
                 StartTime = DateTime.UtcNow.AddHours(1),
                 EndTime = DateTime.UtcNow.AddHours(2)
             };

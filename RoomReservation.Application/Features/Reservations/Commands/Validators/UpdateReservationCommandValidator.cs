@@ -8,6 +8,9 @@ namespace RoomReservation.Application.Validators.Reservations
     {
         public UpdateReservationValidator(IHtmlSanitizerService sanitizer)
         {
+            RuleFor(x => x.Id)
+           .NotEmpty().WithMessage("O campo Id é obrigatório.");
+
             RuleFor(x => x.RoomId)
                .NotEmpty().WithMessage("O campo RoomId é obrigatório.")
                .NotEqual(Guid.Empty).WithMessage("O campo RoomId não pode ser vazio.");

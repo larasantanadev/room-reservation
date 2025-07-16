@@ -27,6 +27,7 @@ public class CreateReservationValidatorTests
         {
             RoomId = Guid.NewGuid(),
             ReservedBy = "João da Silva",
+            NumberOfAttendees = 5,
             StartTime = DateTime.UtcNow.AddHours(1),
             EndTime = DateTime.UtcNow.AddHours(2),
             Status = ReservationStatus.Confirmed
@@ -44,6 +45,7 @@ public class CreateReservationValidatorTests
         {
             RoomId = Guid.Empty,
             ReservedBy = "João",
+            NumberOfAttendees = 5,
             StartTime = DateTime.UtcNow,
             EndTime = DateTime.UtcNow.AddHours(1),
             Status = ReservationStatus.Pending

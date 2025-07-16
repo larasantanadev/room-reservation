@@ -28,6 +28,7 @@ public class UpdateReservationValidatorTests
             Id = Guid.NewGuid(),
             RoomId = Guid.NewGuid(),
             ReservedBy = "Maria Silva",
+            NumberOfAttendees = 5,
             StartTime = DateTime.UtcNow,
             EndTime = DateTime.UtcNow.AddHours(2),
             Status = ReservationStatus.Confirmed
@@ -46,6 +47,7 @@ public class UpdateReservationValidatorTests
             Id = Guid.Empty,
             RoomId = Guid.NewGuid(),
             ReservedBy = "Carlos",
+            NumberOfAttendees = 5,
             StartTime = DateTime.UtcNow,
             EndTime = DateTime.UtcNow.AddHours(1),
             Status = ReservationStatus.Pending
@@ -66,6 +68,7 @@ public class UpdateReservationValidatorTests
             Id = Guid.NewGuid(),
             RoomId = Guid.NewGuid(),
             ReservedBy = "<script>",
+            NumberOfAttendees = 0,
             StartTime = DateTime.UtcNow,
             EndTime = DateTime.UtcNow.AddHours(1),
             Status = ReservationStatus.Confirmed
@@ -86,6 +89,7 @@ public class UpdateReservationValidatorTests
             Id = Guid.NewGuid(),
             RoomId = Guid.NewGuid(),
             ReservedBy = "Ana",
+            NumberOfAttendees = 5,
             StartTime = now.AddHours(2),
             EndTime = now,
             Status = ReservationStatus.Pending
@@ -104,6 +108,7 @@ public class UpdateReservationValidatorTests
             Id = Guid.NewGuid(),
             RoomId = Guid.NewGuid(),
             ReservedBy = "Teste",
+            NumberOfAttendees = 5,
             StartTime = DateTime.UtcNow,
             EndTime = DateTime.UtcNow.AddHours(1),
             Status = (ReservationStatus)999
@@ -122,6 +127,7 @@ public class UpdateReservationValidatorTests
             Id = Guid.NewGuid(),
             RoomId = Guid.NewGuid(),
             ReservedBy = "",
+            NumberOfAttendees = 5,
             StartTime = DateTime.UtcNow,
             EndTime = DateTime.UtcNow.AddHours(1),
             Status = ReservationStatus.Pending
