@@ -10,7 +10,7 @@ namespace RoomReservation.API.Controllers;
 /// Controlador responsável pelas operações de salas.
 /// </summary>
 [ApiController]
-[Route("api/rooms")]
+[Route("api/[controller]")]
 [Produces("application/json")]
 public class RoomController : ControllerBase
 {

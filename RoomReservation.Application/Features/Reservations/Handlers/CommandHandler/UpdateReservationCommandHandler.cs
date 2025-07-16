@@ -1,7 +1,6 @@
 ﻿using MediatR;
 using RoomReservation.Application.Features.Reservations.Commands;
 using RoomReservation.Application.Interfaces.Repositories;
-using RoomReservation.Domain.Enums;
 
 namespace RoomReservation.Application.Features.Reservations.Handlers.CommandHandler;
 

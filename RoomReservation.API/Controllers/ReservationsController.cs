@@ -32,7 +32,7 @@ public class ReservationController : ControllerBase
     [HttpPost]
     [ProducesResponseType(typeof(Guid), StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> CreateReservation([FromBody] CreateReservationCommand command)
+    public async Task<IActionResult> CreateReservation([FromBody]CreateReservationCommand command)
     {
         var id = await _mediator.Send(command);
         return CreatedAtAction(nameof(GetById), new { id }, id);

@@ -1,4 +1,5 @@
 using Polly;
+using RoomReservation.API.Middlewares;
 using RoomReservation.Application.Configurations;
 using RoomReservation.Infrastructure.Configurations;
 using System.Text.Json.Serialization;
@@ -46,6 +47,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseMiddleware<ExceptionMiddleware>();
 
 app.UseHttpsRedirection();
 app.UseAuthorization();
