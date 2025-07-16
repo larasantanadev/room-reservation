@@ -30,6 +30,7 @@ public class UpdateReservationCommandHandler : IRequestHandler<UpdateReservation
 
         reservation.RoomId = request.RoomId;
         reservation.ReservedBy = request.ReservedBy;
+        reservation.NumberOfAttendees = request.NumberOfAttendees;
         reservation.StartTime = request.StartTime;
         reservation.EndTime = request.EndTime;
         reservation.Status = request.Status;

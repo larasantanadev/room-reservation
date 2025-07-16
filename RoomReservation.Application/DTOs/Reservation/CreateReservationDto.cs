@@ -18,6 +18,11 @@ namespace RoomReservation.Application.DTOs.Reservation
         public string ReservedBy { get; set; } = string.Empty;
 
         /// <summary>
+        /// Número de pessoas previstas para a reserva.
+        /// </summary>
+        public int NumberOfAttendees { get; set; }
+
+        /// <summary>
         /// Data e hora de início da reserva.
         /// </summary>
         public DateTime StartTime { get; set; }

@@ -8,6 +8,7 @@ public class CreateReservationCommand : IRequest<Guid>
 {
     public Guid RoomId { get; set; }
     public required string ReservedBy { get; set; }
+    public int NumberOfAttendees { get; set; }
     public DateTime StartTime { get; set; }
     public DateTime EndTime { get; set; }
     public ReservationStatus Status { get; set; }

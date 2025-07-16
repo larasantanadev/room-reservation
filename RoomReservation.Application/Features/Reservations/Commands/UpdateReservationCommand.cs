@@ -9,6 +9,7 @@ public class UpdateReservationCommand : IRequest<bool>
     public Guid Id { get; init; }
     public Guid RoomId { get; init; }
     public string ReservedBy { get; init; } = default!;
+    public int NumberOfAttendees { get; init; }
     public DateTime StartTime { get; init; }
     public DateTime EndTime { get; init; }
     public ReservationStatus Status { get; init; }
@@ -18,6 +19,7 @@ public class UpdateReservationCommand : IRequest<bool>
         Id = id,
         RoomId = dto.RoomId,
         ReservedBy = dto.ReservedBy,
+        NumberOfAttendees = dto.NumberOfAttendees,
         StartTime = dto.StartTime,
         EndTime = dto.EndTime,
         Status = dto.Status

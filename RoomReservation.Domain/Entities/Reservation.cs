@@ -7,6 +7,7 @@ namespace RoomReservation.Domain.Entities
         public Guid Id { get; set; }
         public Guid RoomId { get; set; }
         public string ReservedBy { get; set; } = string.Empty;
+        public int NumberOfAttendees { get; set; }
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
         public ReservationStatus Status { get; set; } = ReservationStatus.Confirmed;

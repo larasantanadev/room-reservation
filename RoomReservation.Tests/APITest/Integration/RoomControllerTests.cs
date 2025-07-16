@@ -4,7 +4,6 @@ using RoomReservation.Application.Features.Rooms.Commands;
 using RoomReservation.Tests.APITest.TestHelpers;
 using System.Net;
 using System.Net.Http.Json;
-using Xunit;
 
 namespace RoomReservation.Tests.APITest.Integration
 {
@@ -101,7 +100,5 @@ namespace RoomReservation.Tests.APITest.Integration
             salasDisponiveis.Should().ContainSingle(r => r.Name == "Sala Disponível");
             salasComConflito.Should().NotContain(r => r.Name == "Sala Disponível");
         }
-
-
     }
 }

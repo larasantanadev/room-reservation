@@ -27,14 +27,25 @@ builder.Services.AddSwaggerGen(options =>
     options.IncludeXmlComments(xmlPath);
 });
 
+// Polly + HttpClient 
+var externalApiBaseUrl = builder.Configuration["ExternalApi:BaseUrl"] ?? throw new InvalidOperationException("ExternalApi:BaseUrl não configurado");
+
 builder.Services.AddHttpClient("ExternalApi", client =>
 {
-    client.BaseAddress = new Uri("https://localhost:9999");
+    client.BaseAddress = new Uri(externalApiBaseUrl);
 })
-.AddTransientHttpErrorPolicy(policy =>
-    policy.WaitAndRetryAsync(2, retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt))))
-.AddTransientHttpErrorPolicy(policy =>
-    policy.CircuitBreakerAsync(2, TimeSpan.FromSeconds(30)));
+.AddPolicyHandler(Policy<HttpResponseMessage>
+    .Handle<HttpRequestException>()
+    .OrResult(r => !r.IsSuccessStatusCode)
+    .WaitAndRetryAsync(3, retry => TimeSpan.FromSeconds(2),
+        onRetry: (response, timespan, retryCount, context) =>
+        {
+            Console.WriteLine($"[Polly Retry] Tentativa {retryCount} após {timespan.TotalSeconds}s devido a {(response.Exception != null ? response.Exception.Message : response.Result.StatusCode.ToString())}");
+        }))
+.AddPolicyHandler(Policy<HttpResponseMessage>
+    .Handle<HttpRequestException>()
+    .OrResult(r => !r.IsSuccessStatusCode)
+    .CircuitBreakerAsync(2, TimeSpan.FromSeconds(30)));
 
 // Health Check
 builder.Services.AddHealthChecks();

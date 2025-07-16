@@ -23,6 +23,9 @@ namespace RoomReservation.Application.Validators.Reservations
                     return sanitized == value;
                 }).WithMessage("O campo ReservedBy contém HTML inválido.");
 
+            RuleFor(x => x.NumberOfAttendees)
+               .GreaterThan(0).WithMessage("O número de participantes deve ser maior que zero.");
+
             RuleFor(x => x.StartTime)
                 .NotEmpty().WithMessage("O campo StartTime é obrigatório.");
 

@@ -14,6 +14,8 @@ namespace RoomReservation.Infrastructure.Persistence.Configurations
                     .IsRequired()
                     .HasMaxLength(100);
 
+            builder.Property(r => r.NumberOfAttendees)
+                  .IsRequired();
 
             builder.Property(r => r.StartTime)
                    .IsRequired();
